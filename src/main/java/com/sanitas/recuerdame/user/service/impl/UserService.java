@@ -4,6 +4,7 @@ import com.sanitas.recuerdame.user.dto.UserRequest;
 import com.sanitas.recuerdame.user.dto.UserResponse;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -14,4 +15,6 @@ public interface UserService {
     UserResponse getUserById(Long id);
 
     void deleteUser(Long id);
+
+    Optional<UserResponse> login(UserRequest request);
 }

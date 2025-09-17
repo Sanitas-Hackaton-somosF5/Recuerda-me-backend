@@ -9,7 +9,7 @@ import com.sanitas.recuerdame.user.repository.UserRepository;
 import com.sanitas.recuerdame.user.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -115,4 +115,6 @@ class UserServiceImplTest {
 
         verify(userRepository, times(1)).deleteById(1L);
     }
+
+
 }

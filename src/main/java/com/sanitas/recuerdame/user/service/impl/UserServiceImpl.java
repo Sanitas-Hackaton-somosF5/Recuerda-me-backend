@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,4 +45,13 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<UserResponse> login(UserRequest request) {
+        return userRepository.findByEmail((request.getEmail()))
+                .filter(user-> user.getPassword().equals(request.getPassword()))
+                .map(userMapper::toDTO);
+    }
 }
+
+
