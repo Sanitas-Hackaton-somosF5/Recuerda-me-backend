@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import com.sanitas.recuerdame.medications.Medication;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
@@ -31,15 +32,19 @@ public class Intake {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name = "date", updatable = false)
   private LocalDate date;
 
+  @Column(name = "slot", updatable = false)
   @Enumerated(EnumType.STRING)
   private IntakeSlot slot;
 
+  @Column(name = "status", updatable = false)
   @Enumerated(EnumType.STRING)
   @Builder.Default
   private StatusEnum status = StatusEnum.PENDING;
 
+  @Column(name = "medication_name", updatable = false)
   @ManyToOne
   @JoinColumn(name = "medication_id")
   private Medication medication;

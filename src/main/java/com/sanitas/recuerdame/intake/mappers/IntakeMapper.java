@@ -10,7 +10,7 @@ import com.sanitas.recuerdame.medications.Medication;
 @Component
 public class IntakeMapper {
 
-  public static Intake dtoToEntity(IntakeDTORequest dtoRequest, Medication medication) {
+  public static Intake toEntity(IntakeDTORequest dtoRequest, Medication medication) {
     return Intake.builder()
         .date(dtoRequest.date())
         .slot(dtoRequest.slot())
@@ -18,7 +18,7 @@ public class IntakeMapper {
         .build();
   };
 
-  public static IntakeDTOResponse entityToDTO(Intake intake) {
+  public static IntakeDTOResponse toDTO(Intake intake) {
     IntakeDTOResponse dtoResponse = new IntakeDTOResponse(
         intake.getId(),
         intake.getMedication().getName(),
