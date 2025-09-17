@@ -1,4 +1,4 @@
-package com.sanitas.recuerdame.medications;
+package com.sanitas.recuerdame.shared;
 
 public enum IntakeSlot {
     BREAKFAST,

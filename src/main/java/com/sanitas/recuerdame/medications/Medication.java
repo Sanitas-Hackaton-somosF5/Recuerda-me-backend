@@ -1,5 +1,6 @@
 package com.sanitas.recuerdame.medications;
 
+import com.sanitas.recuerdame.shared.IntakeSlot;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

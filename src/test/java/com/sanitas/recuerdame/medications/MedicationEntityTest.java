@@ -1,5 +1,6 @@
 package com.sanitas.recuerdame.medications;
 
+import com.sanitas.recuerdame.shared.IntakeSlot;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
