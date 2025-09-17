@@ -1,6 +1,8 @@
 package com.sanitas.recuerdame.medications;
 
+import com.sanitas.recuerdame.intake.Intake;
 import com.sanitas.recuerdame.shared.IntakeSlot;
+import com.sanitas.recuerdame.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,7 +30,7 @@ public class Medication {
     @Column(length = 1000)
     private String description;
 
-    @Column(length = 100)
+    @Column(length = 50)
     private String dose;
 
     private LocalDate startDate;
@@ -43,10 +45,10 @@ public class Medication {
     @Column(name = "slot")
     private List<IntakeSlot> intakeSlots;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-//
-//    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Intake> intakes;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Intake> intakes;
 }
