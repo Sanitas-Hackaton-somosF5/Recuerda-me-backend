@@ -1,5 +1,6 @@
 package com.sanitas.recuerdame.user.entity;
 
+import com.sanitas.recuerdame.medications.Medication;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -40,14 +42,12 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-//
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<Medication> medications;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Medication> medications;
 
     @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+    protected void onCreate() {createdAt = LocalDateTime.now();updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
