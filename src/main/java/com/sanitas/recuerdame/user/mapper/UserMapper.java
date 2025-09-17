@@ -15,7 +15,6 @@ public class UserMapper {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
-        user.setCreatedAt(java.time.LocalDateTime.now());
         return user;
     }
 
@@ -27,6 +26,7 @@ public class UserMapper {
         dto.setUsername(entity.getUsername());
         dto.setEmail(entity.getEmail());
         dto.setCreatedAt(entity.getCreatedAt());
+        dto.setUpdatedAt(entity.getUpdatedAt());
         return dto;
     }
 }
