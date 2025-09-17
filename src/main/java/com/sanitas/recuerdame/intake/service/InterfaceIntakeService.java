@@ -2,16 +2,13 @@ package com.sanitas.recuerdame.intake.service;
 
 import java.util.List;
 
-import com.sanitas.recuerdame.intake.dtos.IntakeDTORequest;
-import com.sanitas.recuerdame.intake.dtos.IntakeDTOResponse;
+public interface InterfaceIntakeService<T, S> {
 
-public interface InterfaceIntakeService {
+  public T createIntake(S request);
 
-  IntakeDTOResponse createIntake(IntakeDTORequest request);
+  public List<T> getAllIntakes();
 
-  List<IntakeDTOResponse> getAllIntakes();
+  public T getIntakeById(Long id);
 
-  IntakeDTOResponse getIntakeById(Long id);
-
-  void deleteIntake(Long id);
+  public void deleteIntake(Long id);
 }
