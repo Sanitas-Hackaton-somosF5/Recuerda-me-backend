@@ -5,8 +5,6 @@ import java.time.LocalDate;
 import com.sanitas.recuerdame.medications.Medication;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
-import com.sanitas.recuerdame.medications.Medication;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
@@ -27,7 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class IntakeEntity {
+public class Intake {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
