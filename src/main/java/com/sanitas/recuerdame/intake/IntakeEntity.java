@@ -1,8 +1,10 @@
 package com.sanitas.recuerdame.intake;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-import jakarta.persistence.Column;
+import com.sanitas.recuerdame.medications.Medication;
+import com.sanitas.recuerdame.shared.IntakeSlot;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
@@ -23,22 +25,23 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Intake {
+public class IntakeEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "scheduled_time", nullable = false)
-  private LocalDateTime scheduledTime;
+  private LocalDate date;
+
+  @Enumerated(EnumType.STRING)
+  private IntakeSlot slot;
 
   @Enumerated(EnumType.STRING)
   @Builder.Default
   private StatusEnum status = StatusEnum.PENDING;
 
-  // TODO: medicine relationship
-  // @ManyToOne
-  // @JoinColumn(name = "medicine_id")
-  // private Medicine medicine;
+  @ManyToOne
+  @JoinColumn(name = "medication_id")
+  private Medication medicine;
 
 }
