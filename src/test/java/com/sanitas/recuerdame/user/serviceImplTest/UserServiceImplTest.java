@@ -84,7 +84,7 @@ class UserServiceImplTest {
 
     @Test
     void getUserById_existing_shouldReturnDTO() {
-        User user = buildUser(1L, "alex");
+        User user = buildUser(1L, "pico");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(userMapper.toDTO(user)).thenReturn(buildUserResponse(1L, "pico"));
 
