@@ -2,6 +2,7 @@ package com.sanitas.recuerdame.intake;
 
 import java.time.LocalDateTime;
 
+import com.sanitas.recuerdame.medications.Medication;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -36,9 +37,8 @@ public class Intake {
   @Builder.Default
   private StatusEnum status = StatusEnum.PENDING;
 
-  // TODO: medicine relationship
-  // @ManyToOne
-  // @JoinColumn(name = "medicine_id")
-  // private Medicine medicine;
+  @ManyToOne
+  @JoinColumn(name = "medicine_id")
+  private Medication medication;
 
 }
