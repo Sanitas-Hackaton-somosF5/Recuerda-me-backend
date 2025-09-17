@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import com.sanitas.recuerdame.medications.Medication;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
+import com.sanitas.recuerdame.medications.Medication;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
