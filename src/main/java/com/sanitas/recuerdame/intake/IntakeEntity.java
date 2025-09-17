@@ -44,4 +44,9 @@ public class IntakeEntity {
   @JoinColumn(name = "medication_id")
   private Medication medicine;
 
+  public enum StatusEnum {
+    PENDING,
+    TAKEN,
+    SKIPPED
+  }
 }
