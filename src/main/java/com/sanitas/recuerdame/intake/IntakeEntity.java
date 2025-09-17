@@ -42,7 +42,7 @@ public class IntakeEntity {
 
   @ManyToOne
   @JoinColumn(name = "medication_id")
-  private Medication medicine;
+  private Medication medication;
 
   public enum StatusEnum {
     PENDING,

@@ -2,5 +2,7 @@ package com.sanitas.recuerdame.intake.dtos;
 
 import java.time.LocalDateTime;
 
-public record IntakeDTORequest(Long medication_id, LocalDateTime dateTime) {
+import com.sanitas.recuerdame.shared.IntakeSlot;
+
+public record IntakeDTORequest(Long medication_id, LocalDateTime dateTime, IntakeSlot slot) {
 }
