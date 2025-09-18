@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
 public record IntakeDTORequest(
-    Long medication_id,
-    LocalDate date,
-    IntakeSlot slot) {
+        Long medicationId,
+        LocalDate date,
+        IntakeSlot slot) {
 }

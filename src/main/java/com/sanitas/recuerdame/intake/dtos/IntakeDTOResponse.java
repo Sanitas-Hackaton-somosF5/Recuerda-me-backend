@@ -6,8 +6,11 @@ import com.sanitas.recuerdame.intake.Intake.StatusEnum;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
 public record IntakeDTOResponse(
-    String medicineString,
-    LocalDate day,
-    IntakeSlot slot,
-    StatusEnum status) {
+        Long id,
+        String medicineName,
+        LocalDate date,
+        IntakeSlot slot,
+        StatusEnum status,
+        String description,
+        String dose) {
 }
