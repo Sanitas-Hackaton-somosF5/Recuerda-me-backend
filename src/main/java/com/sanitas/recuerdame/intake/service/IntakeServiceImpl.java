@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class IntakeServiceImpl implements InterfaceIntakeService<IntakeResponse, IntakeRequest> {
+public class IntakeServiceImpl implements IntakeService<IntakeResponse, IntakeRequest> {
 
   private final IntakeRepository intakeRepository;
 

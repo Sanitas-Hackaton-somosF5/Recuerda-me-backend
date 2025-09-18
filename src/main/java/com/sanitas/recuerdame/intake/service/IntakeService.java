@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sanitas.recuerdame.intake.Status;
 
-public interface InterfaceIntakeService<T, S> {
+public interface IntakeService<T, S> {
 
   public T createIntake(S request);
 

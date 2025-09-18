@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import com.sanitas.recuerdame.intake.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,10 +18,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import com.sanitas.recuerdame.intake.Status;
 import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
 import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
-import com.sanitas.recuerdame.intake.service.InterfaceIntakeService;
+import com.sanitas.recuerdame.intake.service.IntakeService;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,7 +30,7 @@ class IntakeControllerTest {
   private IntakeController controller;
 
   @Mock
-  private InterfaceIntakeService<IntakeResponse, IntakeRequest> service;
+  private IntakeService<IntakeResponse, IntakeRequest> service;
 
   private IntakeResponse mockResponse;
 
