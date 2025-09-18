@@ -2,7 +2,7 @@ package com.sanitas.recuerdame.medications;
 
 import com.sanitas.recuerdame.intake.Intake;
 import com.sanitas.recuerdame.shared.IntakeSlot;
-import com.sanitas.recuerdame.user.User;
+import com.sanitas.recuerdame.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

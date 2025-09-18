@@ -1,7 +1,7 @@
 package com.sanitas.recuerdame.medications.repository;
 
 import com.sanitas.recuerdame.medications.Medication;
-import com.sanitas.recuerdame.user.User;
+import com.sanitas.recuerdame.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
