@@ -1,12 +1,12 @@
 
 package com.sanitas.recuerdame.user.serviceImplTest;
 
-import com.sanitas.recuerdame.user.dto.UserRequest;
-import com.sanitas.recuerdame.user.dto.UserResponse;
-import com.sanitas.recuerdame.user.entity.User;
+import com.sanitas.recuerdame.user.dtos.UserRequest;
+import com.sanitas.recuerdame.user.dtos.UserResponse;
+import com.sanitas.recuerdame.user.User;
 import com.sanitas.recuerdame.user.mapper.UserMapper;
 import com.sanitas.recuerdame.user.repository.UserRepository;
-import com.sanitas.recuerdame.user.service.impl.UserServiceImpl;
+import com.sanitas.recuerdame.user.services.UserServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

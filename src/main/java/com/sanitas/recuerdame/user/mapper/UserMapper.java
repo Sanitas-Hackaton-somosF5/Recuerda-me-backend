@@ -1,8 +1,8 @@
 package com.sanitas.recuerdame.user.mapper;
 
-import com.sanitas.recuerdame.user.dto.UserRequest;
-import com.sanitas.recuerdame.user.dto.UserResponse;
-import com.sanitas.recuerdame.user.entity.User;
+import com.sanitas.recuerdame.user.dtos.UserRequest;
+import com.sanitas.recuerdame.user.dtos.UserResponse;
+import com.sanitas.recuerdame.user.User;
 import org.springframework.stereotype.Component;
 
 @Component
