@@ -2,50 +2,49 @@ package com.sanitas.recuerdame.intake;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
+import com.sanitas.recuerdame.medications.Medication;
+import com.sanitas.recuerdame.shared.IntakeSlot;
+
 public class IntakeTest {
   @Test
-  void testBuilderSetsScheduledTime() {
-    LocalDateTime now = LocalDateTime.now();
+  void testBuilderAndGetters() {
+    Medication med = Medication.builder().id(1L).name("Ibuprofeno").build();
+
     Intake intake = Intake.builder()
-        .scheduledTime(now)
+        .id(100L)
+        .date(LocalDate.of(2025, 9, 17))
+        .slot(IntakeSlot.BREAKFAST)
+        .status(Intake.StatusEnum.TAKEN)
+        .medication(med)
         .build();
 
-    assertThat(intake.getScheduledTime()).isEqualTo(now);
+    assertThat(intake.getId()).isEqualTo(100L);
+    assertThat(intake.getDate()).isEqualTo(LocalDate.of(2025, 9, 17));
+    assertThat(intake.getSlot()).isEqualTo(IntakeSlot.BREAKFAST);
+    assertThat(intake.getStatus()).isEqualTo(Intake.StatusEnum.TAKEN);
+    assertThat(intake.getMedication()).isEqualTo(med);
   }
 
   @Test
-  void testStatusDefaultIsPending() {
+  void testDefaultStatusIsPending() {
     Intake intake = Intake.builder()
-        .scheduledTime(LocalDateTime.now())
+        .date(LocalDate.now())
+        .slot(IntakeSlot.LUNCH)
         .build();
 
-    assertThat(intake.getStatus()).isEqualTo(StatusEnum.PENDING);
+    assertThat(intake.getStatus()).isEqualTo(Intake.StatusEnum.PENDING);
   }
 
   @Test
-  void testSettersAndGetters() {
-    Intake intake = new Intake();
-    LocalDateTime scheduledTime = LocalDateTime.of(2025, 9, 17, 10, 0);
-    intake.setScheduledTime(scheduledTime);
-    intake.setStatus(StatusEnum.TAKEN);
+  void testEqualsAndHashCode() {
+    Intake intake1 = Intake.builder().id(1L).build();
+    Intake intake2 = Intake.builder().id(1L).build();
 
-    assertThat(intake.getScheduledTime()).isEqualTo(scheduledTime);
-    assertThat(intake.getStatus()).isEqualTo(StatusEnum.TAKEN);
-  }
-
-  @Test
-  void testBuilderWithCustomStatus() {
-    LocalDateTime now = LocalDateTime.now();
-    Intake intake = Intake.builder()
-        .scheduledTime(now)
-        .status(StatusEnum.TAKEN)
-        .build();
-
-    assertThat(intake.getStatus()).isEqualTo(StatusEnum.TAKEN);
-    assertThat(intake.getScheduledTime()).isEqualTo(now);
+    assertThat(intake1).isEqualTo(intake2);
+    assertThat(intake1.hashCode()).isEqualTo(intake2.hashCode());
   }
 }
