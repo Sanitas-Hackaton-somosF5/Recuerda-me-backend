@@ -69,7 +69,7 @@ public class IntakeServiceImplTest {
     IntakeResponse response = intakeService.createIntake(request);
 
     assertThat(response.id()).isEqualTo(1L);
-    assertThat(response.medicineName()).isEqualTo("Paracetamol");
+    assertThat(response.medication_name()).isEqualTo("Paracetamol");
     assertThat(response.date()).isEqualTo(request.date());
     assertThat(response.slot()).isEqualTo(request.slot());
     verify(intakeRepository, times(1)).save(any(Intake.class));
@@ -82,7 +82,7 @@ public class IntakeServiceImplTest {
     List<IntakeResponse> responses = intakeService.getAllIntakes();
 
     assertThat(responses).hasSize(1);
-    assertThat(responses.get(0).medicineName()).isEqualTo("Paracetamol");
+    assertThat(responses.get(0).medication_name()).isEqualTo("Paracetamol");
     verify(intakeRepository, times(1)).findAll();
   }
 
@@ -104,7 +104,7 @@ public class IntakeServiceImplTest {
     List<IntakeResponse> responses = intakeService.getTodayIntakes();
 
     assertThat(responses).hasSize(1);
-    assertThat(responses.get(0).medicineName()).isEqualTo("Paracetamol");
+    assertThat(responses.get(0).medication_name()).isEqualTo("Paracetamol");
     verify(intakeRepository).findByDate(LocalDate.now());
   }
 
@@ -115,7 +115,7 @@ public class IntakeServiceImplTest {
     List<IntakeResponse> responses = intakeService.getIntakesByMedication(1L);
 
     assertThat(responses).hasSize(1);
-    assertThat(responses.get(0).medicineName()).isEqualTo("Paracetamol");
+    assertThat(responses.get(0).medication_name()).isEqualTo("Paracetamol");
     verify(intakeRepository).findByMedication(1L);
   }
 

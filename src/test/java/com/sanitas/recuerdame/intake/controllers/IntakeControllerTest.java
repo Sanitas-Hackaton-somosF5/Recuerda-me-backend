@@ -53,7 +53,7 @@ class IntakeControllerTest {
     List<IntakeResponse> result = controller.index();
 
     assertThat(result.size(), is(equalTo(1)));
-    assertThat(result.get(0).medicineName(), is(equalTo("Paracetamol")));
+    assertThat(result.get(0).medication_name(), is(equalTo("Paracetamol")));
   }
 
   @Test
@@ -72,7 +72,7 @@ class IntakeControllerTest {
     ResponseEntity<IntakeResponse> response = controller.singleIntake(1L);
 
     assertThat(response.getStatusCode().value(), is(equalTo(200)));
-    assertThat(response.getBody().medicineName(), is(equalTo("Paracetamol")));
+    assertThat(response.getBody().medication_name(), is(equalTo("Paracetamol")));
     assertThat(response.getBody().dose(), is(equalTo("500mg")));
   }
 
@@ -93,7 +93,7 @@ class IntakeControllerTest {
     List<IntakeResponse> result = controller.getIntakeByMedication(1L);
 
     assertThat(result.size(), is(equalTo(1)));
-    assertThat(result.get(0).medicineName(), is(equalTo("Paracetamol")));
+    assertThat(result.get(0).medication_name(), is(equalTo("Paracetamol")));
   }
 
   @Test

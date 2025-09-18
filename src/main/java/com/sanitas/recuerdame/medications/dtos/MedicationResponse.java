@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record MedicationResponse(
-        String name,
-        String description,
-        String dose,
-        LocalDate startDate,
-        LocalDate endDate,
-        List<IntakeSlot> intakeSlots
-) {
+                Long id,
+                String name,
+                String description,
+                String dose,
+                LocalDate startDate,
+                LocalDate endDate,
+                List<IntakeSlot> intakeSlots) {
 }
