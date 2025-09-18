@@ -1,5 +1,6 @@
 package com.sanitas.recuerdame.user;
 
+import com.sanitas.recuerdame.user.entity.User;
 import com.sanitas.recuerdame.medications.Medication;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 import org.junit.jupiter.api.Test;

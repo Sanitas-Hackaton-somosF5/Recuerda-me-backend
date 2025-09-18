@@ -1,4 +1,4 @@
-package com.sanitas.recuerdame.user;
+package com.sanitas.recuerdame.user.entity;
 
 import com.sanitas.recuerdame.medications.Medication;
 import jakarta.persistence.*;

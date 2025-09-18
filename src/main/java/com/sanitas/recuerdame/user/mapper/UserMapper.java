@@ -1,32 +1,22 @@
 package com.sanitas.recuerdame.user.mapper;
 
-import com.sanitas.recuerdame.user.dtos.UserRequest;
-import com.sanitas.recuerdame.user.dtos.UserResponse;
-import com.sanitas.recuerdame.user.User;
+import com.sanitas.recuerdame.user.dto.UserRegisterRequest;
+import com.sanitas.recuerdame.user.dto.UserResponse;
+import com.sanitas.recuerdame.user.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
 
-    public User toEntity(UserRequest request) {
-        if (request == null) return null;
-
+    public User toEntity(UserRegisterRequest request) {
         User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setUsername(request.username());
+        user.setEmail(request.email());
+        user.setPassword(request.password());
         return user;
     }
 
-    public UserResponse toDTO(User entity) {
-        if (entity == null) return null;
-
-        UserResponse dto = new UserResponse();
-        dto.setId(entity.getId());
-        dto.setUsername(entity.getUsername());
-        dto.setEmail(entity.getEmail());
-        dto.setCreatedAt(entity.getCreatedAt());
-        dto.setUpdatedAt(entity.getUpdatedAt());
-        return dto;
+    public UserResponse toResponse(User user) {
+        return new UserResponse(user.getId(), user.getUsername(), user.getEmail());
     }
 }

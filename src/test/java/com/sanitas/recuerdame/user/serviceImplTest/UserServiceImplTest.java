@@ -3,7 +3,6 @@ package com.sanitas.recuerdame.user.serviceImplTest;
 
 import com.sanitas.recuerdame.user.dtos.UserRequest;
 import com.sanitas.recuerdame.user.dtos.UserResponse;
-import com.sanitas.recuerdame.user.User;
 import com.sanitas.recuerdame.user.mapper.UserMapper;
 import com.sanitas.recuerdame.user.repository.UserRepository;
 import com.sanitas.recuerdame.user.services.UserServiceImpl;
