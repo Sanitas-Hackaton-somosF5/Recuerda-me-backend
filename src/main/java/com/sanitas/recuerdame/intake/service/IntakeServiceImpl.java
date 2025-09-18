@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sanitas.recuerdame.intake.Intake;
-import com.sanitas.recuerdame.intake.IntakeRepository;
 import com.sanitas.recuerdame.intake.Status;
 import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
 import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
 import com.sanitas.recuerdame.intake.mappers.IntakeMapper;
+import com.sanitas.recuerdame.intake.repository.IntakeRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -72,7 +72,7 @@ public class IntakeServiceImpl implements IntakeService<IntakeResponse, IntakeRe
         .orElseThrow(() -> new RuntimeException("Intake not found"));
 
     intake.setStatus(status);
-    Intake updated = intakeRepository.save(intake);
+    Intake updated = intakeRepository.saveAndFlush(intake);
 
     return IntakeMapper.entityToDTO(updated);
   }
