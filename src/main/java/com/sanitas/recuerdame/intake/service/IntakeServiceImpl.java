@@ -6,40 +6,40 @@ import org.springframework.stereotype.Service;
 
 import com.sanitas.recuerdame.intake.Intake;
 import com.sanitas.recuerdame.intake.IntakeRepository;
-import com.sanitas.recuerdame.intake.dtos.IntakeDTORequest;
-import com.sanitas.recuerdame.intake.dtos.IntakeDTOResponse;
+import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
+import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
 import com.sanitas.recuerdame.intake.mappers.IntakeMapper;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class IntakeServiceImpl implements InterfaceIntakeService<IntakeDTOResponse, IntakeDTORequest> {
+public class IntakeServiceImpl implements IntakeService<IntakeResponse, IntakeRequest> {
 
   private final IntakeRepository intakeRepository;
 
   @Override
-  public IntakeDTOResponse createIntake(IntakeDTORequest request) {
-    Intake intake = IntakeMapper.toEntity(request, null);
+  public IntakeResponse createIntake(IntakeRequest request) {
+    Intake intake = IntakeMapper.dtoToEntity(request, null);
     Intake saved = intakeRepository.save(intake);
 
-    return IntakeMapper.toDTO(saved);
+    return IntakeMapper.entityToDTO(saved);
   }
 
   @Override
-  public List<IntakeDTOResponse> getAllIntakes() {
+  public List<IntakeResponse> getAllIntakes() {
     return intakeRepository.findAll()
         .stream()
-        .map(IntakeMapper::toDTO)
+        .map(IntakeMapper::entityToDTO)
         .toList();
   }
 
   @Override
-  public IntakeDTOResponse getIntakeById(Long id) {
+  public IntakeResponse getIntakeById(Long id) {
     Intake intake = intakeRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("Intake not found"));
 
-    return IntakeMapper.toDTO(intake);
+    return IntakeMapper.entityToDTO(intake);
   }
 
   @Override
