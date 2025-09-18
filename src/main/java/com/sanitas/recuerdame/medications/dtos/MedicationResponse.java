@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record MedicationResponse(
+        Long id,
         String name,
         String description,
         String dose,
