@@ -19,12 +19,12 @@ public class MedicationMapper {
 
     public static MedicationResponse entityToDto(Medication medication) {
         return new MedicationResponse(
+                medication.getId(),
                 medication.getName(),
                 medication.getDescription(),
                 medication.getDose(),
                 medication.getStartDate(),
                 medication.getEndDate(),
-                medication.getIntakeSlots()
-        );
+                medication.getIntakeSlots());
     }
 }

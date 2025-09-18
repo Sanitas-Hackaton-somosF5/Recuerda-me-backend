@@ -7,7 +7,7 @@ import com.sanitas.recuerdame.shared.IntakeSlot;
 
 public record IntakeResponse(
         Long id,
-        String medicineName,
+        String medication_name,
         LocalDate date,
         IntakeSlot slot,
         Status status,

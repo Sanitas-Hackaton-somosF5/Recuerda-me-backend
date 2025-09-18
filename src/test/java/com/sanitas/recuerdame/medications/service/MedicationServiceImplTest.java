@@ -79,13 +79,13 @@ class MedicationServiceImplTest {
                     .thenAnswer(invocation -> {
                         Medication m = invocation.getArgument(0);
                         return new MedicationResponse(
+                                m.getId(),
                                 m.getName(),
                                 m.getDescription(),
                                 m.getDose(),
                                 m.getStartDate(),
                                 m.getEndDate(),
-                                m.getIntakeSlots()
-                        );
+                                m.getIntakeSlots());
                     });
 
             List<MedicationResponse> responses = medicationService.getMedicationsByUserId(99L);
@@ -108,14 +108,13 @@ class MedicationServiceImplTest {
         verify(medicationRepository).findByUserId(99L);
     }
 
-
     @Test
     void testGetMedicationById_found() {
         when(medicationRepository.findById(1L)).thenReturn(Optional.of(med1));
 
         try (MockedStatic<MedicationMapper> mapperMock = mockStatic(MedicationMapper.class)) {
             mapperMock.when(() -> MedicationMapper.entityToDto(med1))
-                    .thenReturn(new MedicationResponse("Ibuprofeno", null, "400mg",
+                    .thenReturn(new MedicationResponse(1L, "Ibuprofeno", null, "400mg",
                             med1.getStartDate(), med1.getEndDate(),
                             med1.getIntakeSlots()));
 
@@ -145,8 +144,7 @@ class MedicationServiceImplTest {
                 "600mg",
                 LocalDate.now(),
                 LocalDate.now().plusDays(7),
-                List.of(IntakeSlot.BREAKFAST, IntakeSlot.DINNER)
-        );
+                List.of(IntakeSlot.BREAKFAST, IntakeSlot.DINNER));
 
         User demoUser = new User();
         demoUser.setId(1L);
@@ -154,8 +152,7 @@ class MedicationServiceImplTest {
 
         when(userRepository.findByUsername("Ana")).thenReturn(Optional.of(demoUser));
         when(medicationRepository.existsByNameAndDoseAndUserAndStartDateAndEndDate(
-                request.name(), request.dose(), demoUser, request.startDate(), request.endDate()
-        )).thenReturn(false);
+                request.name(), request.dose(), demoUser, request.startDate(), request.endDate())).thenReturn(false);
 
         Medication medicationEntity = MedicationMapper.dtoToEntity(request);
         medicationEntity.setUser(demoUser);
@@ -185,8 +182,7 @@ class MedicationServiceImplTest {
                 "400mg",
                 LocalDate.now(),
                 LocalDate.now().plusDays(3),
-                List.of(IntakeSlot.BREAKFAST)
-        );
+                List.of(IntakeSlot.BREAKFAST));
 
         when(userRepository.findByUsername("Ana")).thenReturn(Optional.empty());
 
@@ -197,7 +193,6 @@ class MedicationServiceImplTest {
         verify(medicationRepository, never()).save(any(Medication.class));
     }
 
-
     @Test
     void testAddMedication_alreadyExists() {
         MedicationRequest request = new MedicationRequest(
@@ -206,9 +201,7 @@ class MedicationServiceImplTest {
                 "400mg",
                 LocalDate.now(),
                 LocalDate.now().plusDays(2),
-                List.of(IntakeSlot.BREAKFAST)
-        );
-
+                List.of(IntakeSlot.BREAKFAST));
 
         when(userRepository.findByUsername("Ana")).thenReturn(Optional.of(demoUser));
         when(medicationRepository.existsByNameAndDoseAndUserAndStartDateAndEndDate(
@@ -227,8 +220,7 @@ class MedicationServiceImplTest {
                 "400mg",
                 LocalDate.now(),
                 LocalDate.now().plusDays(3),
-                List.of(IntakeSlot.BREAKFAST)
-        );
+                List.of(IntakeSlot.BREAKFAST));
 
         when(userRepository.findByUsername("Ana")).thenReturn(Optional.of(demoUser));
         when(medicationRepository.existsByNameAndDoseAndUserAndStartDateAndEndDate(
