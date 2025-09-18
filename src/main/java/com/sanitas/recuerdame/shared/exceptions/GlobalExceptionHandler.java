@@ -76,4 +76,10 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(emailAlreadyExistsException.class)
+    public ResponseEntity<String> handleEmailAlreadyExists(emailAlreadyExistsException ex) {
+        return ResponseEntity.status(409).body(ex.getMessage());
+    }
 }
+
