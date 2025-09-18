@@ -19,10 +19,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.sanitas.recuerdame.intake.Intake;
-import com.sanitas.recuerdame.intake.IntakeRepository;
 import com.sanitas.recuerdame.intake.Status;
 import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
 import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
+import com.sanitas.recuerdame.intake.repository.IntakeRepository;
 import com.sanitas.recuerdame.medications.Medication;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
