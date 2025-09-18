@@ -1,6 +1,8 @@
-package com.sanitas.recuerdame.medications.dtos;
+package com.sanitas.recuerdame.medications.mapper;
 
 import com.sanitas.recuerdame.medications.Medication;
+import com.sanitas.recuerdame.medications.dtos.MedicationRequest;
+import com.sanitas.recuerdame.medications.dtos.MedicationResponse;
 
 public class MedicationMapper {
 

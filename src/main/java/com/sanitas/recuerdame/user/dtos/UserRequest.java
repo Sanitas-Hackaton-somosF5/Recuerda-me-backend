@@ -1,4 +1,4 @@
-package com.sanitas.recuerdame.user.dto;
+package com.sanitas.recuerdame.user.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
