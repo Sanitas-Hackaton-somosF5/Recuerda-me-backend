@@ -30,7 +30,7 @@ public class Intake {
   @Enumerated(EnumType.STRING)
   private IntakeSlot slot;
 
-  @Column(name = "status", updatable = false)
+  @Column(name = "status")
   @Enumerated(EnumType.STRING)
   @Builder.Default
   private Status status = Status.PENDING;
