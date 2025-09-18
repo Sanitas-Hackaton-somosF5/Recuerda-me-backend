@@ -33,16 +33,10 @@ public class Intake {
   @Column(name = "status", updatable = false)
   @Enumerated(EnumType.STRING)
   @Builder.Default
-  private StatusEnum status = StatusEnum.PENDING;
+  private Status status = Status.PENDING;
 
   @Column(name = "medication_name", updatable = false)
   @ManyToOne
   @JoinColumn(name = "medication_id")
   private Medication medication;
-
-  public enum StatusEnum {
-    PENDING,
-    TAKEN,
-    SKIPPED
-  }
 }
