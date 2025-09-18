@@ -1,11 +1,10 @@
-package com.sanitas.recuerdame.user;
+package com.sanitas.recuerdame.user.service;
 
 import com.sanitas.recuerdame.user.dto.UserLoginRequest;
 import com.sanitas.recuerdame.user.dto.UserRegisterRequest;
 import com.sanitas.recuerdame.user.entity.User;
 import com.sanitas.recuerdame.user.mapper.UserMapper;
 import com.sanitas.recuerdame.user.repository.UserRepository;
-import com.sanitas.recuerdame.user.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
