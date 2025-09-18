@@ -56,4 +56,12 @@ public class IntakeServiceImpl implements InterfaceIntakeService<IntakeDTORespon
         .map(IntakeMapper::toDTO)
         .toList();
   }
+
+  @Override
+  public List<IntakeDTOResponse> getIntakesByMedication(Long medicationId) {
+    return intakeRepository.findByMedication(medicationId)
+        .stream()
+        .map(IntakeMapper::toDTO)
+        .toList();
+  }
 }

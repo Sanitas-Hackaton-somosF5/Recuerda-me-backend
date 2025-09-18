@@ -67,4 +67,10 @@ public class IntakeController {
   public List<IntakeDTOResponse> todayIntake() {
     return service.getTodayIntakes();
   }
+
+  @GetMapping("/medication/{medicationid}")
+  public List<IntakeDTOResponse> getIntakeByMedication(@PathVariable("medicationId") Long medicationId) {
+    return service.getIntakesByMedication(medicationId);
+  }
+
 }

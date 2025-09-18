@@ -13,4 +13,6 @@ public interface InterfaceIntakeService<T, S> {
   public void deleteIntake(Long id);
 
   public List<T> getTodayIntakes();
+
+  public List<T> getIntakesByMedication(Long medicationId);
 }
