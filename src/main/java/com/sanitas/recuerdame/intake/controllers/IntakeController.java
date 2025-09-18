@@ -7,10 +7,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sanitas.recuerdame.intake.Intake;
 import com.sanitas.recuerdame.intake.dtos.IntakeDTORequest;
 import com.sanitas.recuerdame.intake.dtos.IntakeDTOResponse;
 import com.sanitas.recuerdame.intake.service.InterfaceIntakeService;
@@ -72,5 +75,14 @@ public class IntakeController {
   public List<IntakeDTOResponse> getIntakeByMedication(@PathVariable("medicationId") Long medicationId) {
     return service.getIntakesByMedication(medicationId);
   }
+
+  @PutMapping("/{id}/{status}")
+  public ResponseEntity<IntakeDTOResponse> updateStatus(
+      @PathVariable("id") Long id,
+      @PathVariable("status") Intake.StatusEnum status) {
+
+    IntakeDTOResponse updated = service.updateIntakeStatus(id, status);
+    return ResponseEntity.ok(updated);
+  };
 
 }

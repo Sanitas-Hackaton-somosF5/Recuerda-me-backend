@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.sanitas.recuerdame.intake.Intake;
+import com.sanitas.recuerdame.intake.Intake.StatusEnum;
 import com.sanitas.recuerdame.intake.IntakeRepository;
 import com.sanitas.recuerdame.intake.dtos.IntakeDTORequest;
 import com.sanitas.recuerdame.intake.dtos.IntakeDTOResponse;
@@ -63,5 +64,16 @@ public class IntakeServiceImpl implements InterfaceIntakeService<IntakeDTORespon
         .stream()
         .map(IntakeMapper::toDTO)
         .toList();
+  }
+
+  @Override
+  public IntakeDTOResponse updateIntakeStatus(Long id, StatusEnum status) {
+    Intake intake = intakeRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Intake not found"));
+
+    intake.setStatus(status);
+    Intake updated = intakeRepository.save(intake);
+
+    return IntakeMapper.toDTO(updated);
   }
 }
