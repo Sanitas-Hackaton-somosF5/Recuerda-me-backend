@@ -20,13 +20,13 @@ public class IntakeMapper {
 
   public static IntakeResponse entityToDTO(Intake intake) {
     IntakeResponse dtoResponse = new IntakeResponse(
-            intake.getId(),
-            intake.getMedication().getName(),
-            intake.getDate(),
-            intake.getSlot(),
-            intake.getStatus(),
-            intake.getMedication().getDescription(),
-            intake.getMedication().getDose());
+        intake.getId(),
+        intake.getMedication().getName(),
+        intake.getDate(),
+        intake.getSlot(),
+        intake.getStatus(),
+        intake.getMedication().getDescription(),
+        intake.getMedication().getDose());
 
     return dtoResponse;
   }

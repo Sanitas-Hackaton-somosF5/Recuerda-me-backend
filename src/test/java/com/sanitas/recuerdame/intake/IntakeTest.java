@@ -18,14 +18,14 @@ public class IntakeTest {
         .id(100L)
         .date(LocalDate.of(2025, 9, 17))
         .slot(IntakeSlot.BREAKFAST)
-        .status(Intake.StatusEnum.TAKEN)
+        .status(Status.TAKEN)
         .medication(med)
         .build();
 
     assertThat(intake.getId()).isEqualTo(100L);
     assertThat(intake.getDate()).isEqualTo(LocalDate.of(2025, 9, 17));
     assertThat(intake.getSlot()).isEqualTo(IntakeSlot.BREAKFAST);
-    assertThat(intake.getStatus()).isEqualTo(Intake.StatusEnum.TAKEN);
+    assertThat(intake.getStatus()).isEqualTo(Status.TAKEN);
     assertThat(intake.getMedication()).isEqualTo(med);
   }
 
@@ -36,7 +36,7 @@ public class IntakeTest {
         .slot(IntakeSlot.LUNCH)
         .build();
 
-    assertThat(intake.getStatus()).isEqualTo(Intake.StatusEnum.PENDING);
+    assertThat(intake.getStatus()).isEqualTo(Status.PENDING);
   }
 
   @Test

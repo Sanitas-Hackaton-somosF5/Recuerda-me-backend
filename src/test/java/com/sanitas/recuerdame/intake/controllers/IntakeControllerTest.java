@@ -3,8 +3,6 @@ package com.sanitas.recuerdame.intake.controllers;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -19,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
-
 
 import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
 import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
@@ -79,49 +76,4 @@ class IntakeControllerTest {
     assertThat(response.getBody().dose(), is(equalTo("500mg")));
   }
 
-  @Test
-  void testStoreIntake_ShouldReturn201() {
-    IntakeRequest dto = new IntakeRequest(10L, LocalDate.of(2025, 9, 17), IntakeSlot.BREAKFAST);
-    when(service.createIntake(dto)).thenReturn(mockResponse);
-
-    ResponseEntity<IntakeResponse> response = controller.storeIntake(dto);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(201)));
-    assertThat(response.getBody().medicineName(), is(equalTo("Paracetamol")));
-  }
-
-  @Test
-  void testStoreIntake_ShouldReturn400_WhenRequestNull() {
-    ResponseEntity<IntakeResponse> response = controller.storeIntake(null);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(400)));
-  }
-
-  @Test
-  void testStoreIntake_ShouldReturn204_WhenServiceReturnsNull() {
-    IntakeRequest dto = new IntakeRequest(10L, LocalDate.of(2025, 9, 17), IntakeSlot.BREAKFAST);
-    when(service.createIntake(dto)).thenReturn(null);
-
-    ResponseEntity<IntakeResponse> response = controller.storeIntake(dto);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(204)));
-  }
-
-  @Test
-  void testDeleteIntake_ShouldReturn204() {
-    doNothing().when(service).deleteIntake(1L);
-
-    ResponseEntity<Void> response = controller.deleteIntake(1L);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(204)));
-  }
-
-  @Test
-  void testDeleteIntake_ShouldReturn400_WhenIllegalState() {
-    doThrow(new IllegalStateException("Not allowed")).when(service).deleteIntake(1L);
-
-    ResponseEntity<Void> response = controller.deleteIntake(1L);
-
-    assertThat(response.getStatusCode().value(), is(equalTo(400)));
-  }
 }

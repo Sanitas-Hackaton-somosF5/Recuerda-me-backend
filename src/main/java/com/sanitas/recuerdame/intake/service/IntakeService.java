@@ -2,13 +2,21 @@ package com.sanitas.recuerdame.intake.service;
 
 import java.util.List;
 
+import com.sanitas.recuerdame.intake.Status;
+
 public interface IntakeService<T, S> {
 
-  T createIntake(S request);
+  public T createIntake(S request);
 
-  List<T> getAllIntakes();
+  public List<T> getAllIntakes();
 
-  T getIntakeById(Long id);
+  public T getIntakeById(Long id);
 
-  void deleteIntake(Long id);
+  public void deleteIntake(Long id);
+
+  public List<T> getTodayIntakes();
+
+  public List<T> getIntakesByMedication(Long medicationId);
+
+  T updateIntakeStatus(Long id, Status status);
 }
