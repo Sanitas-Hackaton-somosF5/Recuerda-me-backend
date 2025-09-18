@@ -1,10 +1,12 @@
 INSERT INTO users (id, username, email, password)
 VALUES (1, 'Ana', 'ana@gmail.com', 'demo123');
 
-INSERT INTO medications (id, name, dose, start_date, end_date, user_id)
+INSERT INTO medications (name, description, dose, start_date, end_date)
 VALUES
-(1, 'Ibuprofeno', '600mg', '2025-09-18', '2025-09-20', 1),
-(2, 'Paracetamol', '500mg', '2025-09-18', '2025-09-19', 1);
+('Ibuprofeno', 'Tomar después de comer', '200 mg', '2025-09-18', '2025-09-25'),
+('Paracetamol', 'Aliviar dolor y fiebre', '500 mg', '2025-09-18', '2025-09-25'),
+('Amoxicilina', 'Antibiótico de amplio espectro', '875 mg', '2025-09-18', '2025-09-25'),
+('Prasugrel', 'Inhibe la formación plaquetaria', '10 mg', '2025-09-18', '2025-09-25');
 
 INSERT INTO intakes (intake_date, slot, status, medication_id)
 VALUES

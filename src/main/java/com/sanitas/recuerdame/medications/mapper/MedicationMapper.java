@@ -9,6 +9,7 @@ public class MedicationMapper {
     public static Medication dtoToEntity(MedicationRequest request) {
         return Medication.builder()
                 .name(request.name())
+                .description(request.description())
                 .dose(request.dose())
                 .startDate(request.startDate())
                 .endDate(request.endDate())
