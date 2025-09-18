@@ -1,7 +1,7 @@
-package com.sanitas.recuerdame.user.service.impl;
+package com.sanitas.recuerdame.user.services;
 
-import com.sanitas.recuerdame.user.dto.UserRequest;
-import com.sanitas.recuerdame.user.dto.UserResponse;
+import com.sanitas.recuerdame.user.dtos.UserRequest;
+import com.sanitas.recuerdame.user.dtos.UserResponse;
 
 import java.util.List;
 
