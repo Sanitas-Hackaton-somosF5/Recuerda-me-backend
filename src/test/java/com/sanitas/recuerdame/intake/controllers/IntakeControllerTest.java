@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import com.sanitas.recuerdame.intake.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,10 +20,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import com.sanitas.recuerdame.intake.Intake.StatusEnum;
-import com.sanitas.recuerdame.intake.dtos.IntakeDTORequest;
-import com.sanitas.recuerdame.intake.dtos.IntakeDTOResponse;
-import com.sanitas.recuerdame.intake.service.InterfaceIntakeService;
+
+import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
+import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
+import com.sanitas.recuerdame.intake.service.IntakeService;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,18 +33,18 @@ class IntakeControllerTest {
   private IntakeController controller;
 
   @Mock
-  private InterfaceIntakeService<IntakeDTOResponse, IntakeDTORequest> service;
+  private IntakeService<IntakeResponse, IntakeRequest> service;
 
-  private IntakeDTOResponse mockResponse;
+  private IntakeResponse mockResponse;
 
   @BeforeEach
   void setUp() {
-    mockResponse = new IntakeDTOResponse(
+    mockResponse = new IntakeResponse(
         1L,
         "Paracetamol",
         LocalDate.of(2025, 9, 17),
         IntakeSlot.BREAKFAST,
-        StatusEnum.PENDING,
+        Status.PENDING,
         "Take with water",
         "500mg");
   }
@@ -52,7 +53,7 @@ class IntakeControllerTest {
   void testIndex_ShouldReturnAllIntakes() {
     when(service.getAllIntakes()).thenReturn(List.of(mockResponse));
 
-    List<IntakeDTOResponse> result = controller.index();
+    List<IntakeResponse> result = controller.index();
 
     assertThat(result.size(), is(equalTo(1)));
     assertThat(result.get(0).medicineName(), is(equalTo("Paracetamol")));
@@ -62,7 +63,7 @@ class IntakeControllerTest {
   void testIndex_ShouldReturnEmptyList() {
     when(service.getAllIntakes()).thenReturn(Collections.emptyList());
 
-    List<IntakeDTOResponse> result = controller.index();
+    List<IntakeResponse> result = controller.index();
 
     assertThat(result.size(), is(equalTo(0)));
   }
@@ -71,7 +72,7 @@ class IntakeControllerTest {
   void testSingleIntake_ShouldReturnIntakeById() {
     when(service.getIntakeById(1L)).thenReturn(mockResponse);
 
-    ResponseEntity<IntakeDTOResponse> response = controller.singleIntake(1L);
+    ResponseEntity<IntakeResponse> response = controller.singleIntake(1L);
 
     assertThat(response.getStatusCode().value(), is(equalTo(200)));
     assertThat(response.getBody().medicineName(), is(equalTo("Paracetamol")));
@@ -80,10 +81,10 @@ class IntakeControllerTest {
 
   @Test
   void testStoreIntake_ShouldReturn201() {
-    IntakeDTORequest dto = new IntakeDTORequest(10L, LocalDate.of(2025, 9, 17), IntakeSlot.BREAKFAST);
+    IntakeRequest dto = new IntakeRequest(10L, LocalDate.of(2025, 9, 17), IntakeSlot.BREAKFAST);
     when(service.createIntake(dto)).thenReturn(mockResponse);
 
-    ResponseEntity<IntakeDTOResponse> response = controller.storeIntake(dto);
+    ResponseEntity<IntakeResponse> response = controller.storeIntake(dto);
 
     assertThat(response.getStatusCode().value(), is(equalTo(201)));
     assertThat(response.getBody().medicineName(), is(equalTo("Paracetamol")));
@@ -91,17 +92,17 @@ class IntakeControllerTest {
 
   @Test
   void testStoreIntake_ShouldReturn400_WhenRequestNull() {
-    ResponseEntity<IntakeDTOResponse> response = controller.storeIntake(null);
+    ResponseEntity<IntakeResponse> response = controller.storeIntake(null);
 
     assertThat(response.getStatusCode().value(), is(equalTo(400)));
   }
 
   @Test
   void testStoreIntake_ShouldReturn204_WhenServiceReturnsNull() {
-    IntakeDTORequest dto = new IntakeDTORequest(10L, LocalDate.of(2025, 9, 17), IntakeSlot.BREAKFAST);
+    IntakeRequest dto = new IntakeRequest(10L, LocalDate.of(2025, 9, 17), IntakeSlot.BREAKFAST);
     when(service.createIntake(dto)).thenReturn(null);
 
-    ResponseEntity<IntakeDTOResponse> response = controller.storeIntake(dto);
+    ResponseEntity<IntakeResponse> response = controller.storeIntake(dto);
 
     assertThat(response.getStatusCode().value(), is(equalTo(204)));
   }

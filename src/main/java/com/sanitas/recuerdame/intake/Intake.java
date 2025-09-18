@@ -35,7 +35,6 @@ public class Intake {
   @Builder.Default
   private Status status = Status.PENDING;
 
-  @Column(name = "medication_name", updatable = false)
   @ManyToOne
   @JoinColumn(name = "medication_id")
   private Medication medication;
