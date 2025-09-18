@@ -25,6 +25,8 @@ import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
 import com.sanitas.recuerdame.intake.repository.IntakeRepository;
 import com.sanitas.recuerdame.medications.Medication;
 import com.sanitas.recuerdame.shared.IntakeSlot;
+import com.sanitas.recuerdame.shared.exceptions.IntakeNotFoundException;
+import com.sanitas.recuerdame.shared.exceptions.MedicationNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 public class IntakeServiceImplTest {
@@ -96,22 +98,6 @@ public class IntakeServiceImplTest {
   }
 
   @Test
-  void getIntakeById_whenNotExists_shouldThrow() {
-    when(intakeRepository.findById(99L)).thenReturn(Optional.empty());
-
-    assertThatThrownBy(() -> intakeService.getIntakeById(99L))
-        .isInstanceOf(RuntimeException.class)
-        .hasMessage("Intake not found");
-  }
-
-  @Test
-  void deleteIntake_shouldCallRepository() {
-    intakeService.deleteIntake(1L);
-
-    verify(intakeRepository, times(1)).deleteById(1L);
-  }
-
-  @Test
   void getTodayIntakes_shouldReturnListOfDTOs() {
     when(intakeRepository.findByDate(LocalDate.now())).thenReturn(List.of(mockIntake));
 
@@ -146,11 +132,52 @@ public class IntakeServiceImplTest {
   }
 
   @Test
+  void getIntakeById_whenNotExists_shouldThrow() {
+    when(intakeRepository.findById(99L)).thenReturn(Optional.empty());
+
+    assertThatThrownBy(() -> intakeService.getIntakeById(99L))
+        .isInstanceOf(IntakeNotFoundException.class)
+        .hasMessage("Intake with id 99 not found");
+  }
+
+  @Test
   void updateIntakeStatus_whenNotExists_shouldThrow() {
     when(intakeRepository.findById(99L)).thenReturn(Optional.empty());
 
     assertThatThrownBy(() -> intakeService.updateIntakeStatus(99L, Status.SKIPPED))
-        .isInstanceOf(RuntimeException.class)
-        .hasMessage("Intake not found");
+        .isInstanceOf(IntakeNotFoundException.class)
+        .hasMessage("Intake with id 99 not found");
+  }
+
+  @Test
+  void deleteIntake_whenExists_shouldCallRepository() {
+    when(intakeRepository.existsById(1L)).thenReturn(true);
+
+    intakeService.deleteIntake(1L);
+
+    verify(intakeRepository, times(1)).deleteById(1L);
+  }
+
+  @Test
+  void deleteIntake_whenNotExists_shouldThrow() {
+    when(intakeRepository.existsById(99L)).thenReturn(false);
+
+    assertThatThrownBy(() -> intakeService.deleteIntake(99L))
+        .isInstanceOf(IntakeNotFoundException.class)
+        .hasMessage("Intake with id 99 not found");
+
+    verify(intakeRepository, times(0)).deleteById(99L);
+  }
+
+  @Test
+  void createIntake_whenMedicationIdIsNull_shouldThrow() {
+    IntakeRequest request = new IntakeRequest(
+        null,
+        LocalDate.of(2025, 9, 17),
+        IntakeSlot.BREAKFAST);
+
+    assertThatThrownBy(() -> intakeService.createIntake(request))
+        .isInstanceOf(MedicationNotFoundException.class)
+        .hasMessage("MedicationId is required to create an intake");
   }
 }

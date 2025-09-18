@@ -13,43 +13,44 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleUserNotFound(UserNotFoundException exception,
+            HttpServletRequest request) {
 
         ErrorResponse error = buildErrorResponse(
                 exception.getErrorCode(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND,
-                request.getRequestURI()
-        );
+                request.getRequestURI());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MedicationNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleMedicationNotFoundException(MedicationNotFoundException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleMedicationNotFoundException(MedicationNotFoundException exception,
+            HttpServletRequest request) {
         ErrorResponse errorResponse = buildErrorResponse(
                 exception.getErrorCode(),
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND,
-                request.getRequestURI()
-        );
+                request.getRequestURI());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(MedicationAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponse> handleMedicationAlreadyExists(MedicationAlreadyExistsException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleMedicationAlreadyExists(MedicationAlreadyExistsException exception,
+            HttpServletRequest request) {
 
         ErrorResponse error = buildErrorResponse(
                 exception.getErrorCode(),
                 exception.getMessage(),
                 HttpStatus.CONFLICT,
-                request.getRequestURI()
-        );
+                request.getRequestURI());
 
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException exception, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException exception,
+            HttpServletRequest request) {
 
         String message = exception.getBindingResult().getFieldErrors().stream()
                 .findFirst()
@@ -60,8 +61,7 @@ public class GlobalExceptionHandler {
                 ErrorCode.VALIDATION_ERROR,
                 message,
                 HttpStatus.BAD_REQUEST,
-                request.getRequestURI()
-        );
+                request.getRequestURI());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -72,8 +72,7 @@ public class GlobalExceptionHandler {
                 ErrorCode.SERVER_ERROR,
                 "Internal server error",
                 HttpStatus.INTERNAL_SERVER_ERROR,
-                request.getRequestURI()
-        );
+                request.getRequestURI());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -81,5 +80,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleEmailAlreadyExists(emailAlreadyExistsException ex) {
         return ResponseEntity.status(409).body(ex.getMessage());
     }
-}
 
+    @ExceptionHandler(IntakeNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleIntakeNotFound(IntakeNotFoundException exception,
+            HttpServletRequest request) {
+
+        ErrorResponse error = new ErrorResponse(
+                exception.getErrorCode(),
+                exception.getMessage(),
+                HttpStatus.NOT_FOUND,
+                request.getRequestURI());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+}

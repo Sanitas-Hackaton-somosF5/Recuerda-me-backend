@@ -11,6 +11,8 @@ import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
 import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
 import com.sanitas.recuerdame.intake.mappers.IntakeMapper;
 import com.sanitas.recuerdame.intake.repository.IntakeRepository;
+import com.sanitas.recuerdame.shared.exceptions.IntakeNotFoundException;
+import com.sanitas.recuerdame.shared.exceptions.MedicationNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +24,9 @@ public class IntakeServiceImpl implements IntakeService<IntakeResponse, IntakeRe
 
   @Override
   public IntakeResponse createIntake(IntakeRequest request) {
+    if (request.medicationId() == null) {
+      throw new MedicationNotFoundException("MedicationId is required to create an intake");
+    }
     Intake intake = IntakeMapper.dtoToEntity(request, null);
     Intake saved = intakeRepository.save(intake);
 
@@ -39,13 +44,16 @@ public class IntakeServiceImpl implements IntakeService<IntakeResponse, IntakeRe
   @Override
   public IntakeResponse getIntakeById(Long id) {
     Intake intake = intakeRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Intake not found"));
+        .orElseThrow(() -> new IntakeNotFoundException("Intake with id " + id + " not found"));
 
     return IntakeMapper.entityToDTO(intake);
   }
 
   @Override
   public void deleteIntake(Long id) {
+    if (!intakeRepository.existsById(id)) {
+      throw new IntakeNotFoundException("Intake with id " + id + " not found");
+    }
     intakeRepository.deleteById(id);
   }
 
@@ -69,7 +77,7 @@ public class IntakeServiceImpl implements IntakeService<IntakeResponse, IntakeRe
   @Override
   public IntakeResponse updateIntakeStatus(Long id, Status status) {
     Intake intake = intakeRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Intake not found"));
+        .orElseThrow(() -> new IntakeNotFoundException("Intake with id " + id + " not found"));
 
     intake.setStatus(status);
     Intake updated = intakeRepository.saveAndFlush(intake);
