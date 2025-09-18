@@ -11,4 +11,6 @@ public interface InterfaceIntakeService<T, S> {
   public T getIntakeById(Long id);
 
   public void deleteIntake(Long id);
+
+  public List<T> getTodayIntakes();
 }

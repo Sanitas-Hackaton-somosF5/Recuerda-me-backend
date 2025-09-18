@@ -44,7 +44,6 @@ public class Intake {
   @Builder.Default
   private StatusEnum status = StatusEnum.PENDING;
 
-  @Column(name = "medication_name", updatable = false)
   @ManyToOne
   @JoinColumn(name = "medication_id")
   private Medication medication;

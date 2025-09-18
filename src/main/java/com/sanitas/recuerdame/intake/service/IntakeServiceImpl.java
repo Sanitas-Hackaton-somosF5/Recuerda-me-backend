@@ -1,5 +1,6 @@
 package com.sanitas.recuerdame.intake.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -45,5 +46,14 @@ public class IntakeServiceImpl implements InterfaceIntakeService<IntakeDTORespon
   @Override
   public void deleteIntake(Long id) {
     intakeRepository.deleteById(id);
+  }
+
+  @Override
+  public List<IntakeDTOResponse> getTodayIntakes() {
+    LocalDate today = LocalDate.now();
+    return intakeRepository.findByDate(today)
+        .stream()
+        .map(IntakeMapper::toDTO)
+        .toList();
   }
 }

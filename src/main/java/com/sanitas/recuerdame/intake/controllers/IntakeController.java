@@ -62,4 +62,9 @@ public class IntakeController {
   }
 
   // TODO: Update and date path
+
+  @GetMapping("/today")
+  public List<IntakeDTOResponse> todayIntake() {
+    return service.getTodayIntakes();
+  }
 }
