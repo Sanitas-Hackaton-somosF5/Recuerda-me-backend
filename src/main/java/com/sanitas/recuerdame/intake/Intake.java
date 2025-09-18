@@ -32,7 +32,7 @@ public class Intake {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "date", updatable = false)
+  @Column(name = "intake_date", updatable = false)
   private LocalDate date;
 
   @Column(name = "slot", updatable = false)
