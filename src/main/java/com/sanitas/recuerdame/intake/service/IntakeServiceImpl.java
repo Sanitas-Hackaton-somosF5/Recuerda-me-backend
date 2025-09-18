@@ -72,7 +72,7 @@ public class IntakeServiceImpl implements IntakeService<IntakeResponse, IntakeRe
         .orElseThrow(() -> new RuntimeException("Intake not found"));
 
     intake.setStatus(status);
-    Intake updated = intakeRepository.save(intake);
+    Intake updated = intakeRepository.saveAndFlush(intake);
 
     return IntakeMapper.entityToDTO(updated);
   }

@@ -110,4 +110,47 @@ public class IntakeServiceImplTest {
 
     verify(intakeRepository, times(1)).deleteById(1L);
   }
+
+  @Test
+  void getTodayIntakes_shouldReturnListOfDTOs() {
+    when(intakeRepository.findByDate(LocalDate.now())).thenReturn(List.of(mockIntake));
+
+    List<IntakeResponse> responses = intakeService.getTodayIntakes();
+
+    assertThat(responses).hasSize(1);
+    assertThat(responses.get(0).medicineName()).isEqualTo("Paracetamol");
+    verify(intakeRepository).findByDate(LocalDate.now());
+  }
+
+  @Test
+  void getIntakesByMedication_shouldReturnListOfDTOs() {
+    when(intakeRepository.findByMedication(1L)).thenReturn(List.of(mockIntake));
+
+    List<IntakeResponse> responses = intakeService.getIntakesByMedication(1L);
+
+    assertThat(responses).hasSize(1);
+    assertThat(responses.get(0).medicineName()).isEqualTo("Paracetamol");
+    verify(intakeRepository).findByMedication(1L);
+  }
+
+  @Test
+  void updateIntakeStatus_whenExists_shouldUpdateAndReturnDTO() {
+    when(intakeRepository.findById(10L)).thenReturn(Optional.of(mockIntake));
+    when(intakeRepository.saveAndFlush(any(Intake.class))).thenAnswer(inv -> inv.getArgument(0));
+
+    IntakeResponse response = intakeService.updateIntakeStatus(10L, Status.TAKEN);
+
+    assertThat(response.id()).isEqualTo(1L);
+    assertThat(response.status()).isEqualTo(Status.TAKEN);
+    verify(intakeRepository).saveAndFlush(mockIntake);
+  }
+
+  @Test
+  void updateIntakeStatus_whenNotExists_shouldThrow() {
+    when(intakeRepository.findById(99L)).thenReturn(Optional.empty());
+
+    assertThatThrownBy(() -> intakeService.updateIntakeStatus(99L, Status.SKIPPED))
+        .isInstanceOf(RuntimeException.class)
+        .hasMessage("Intake not found");
+  }
 }
