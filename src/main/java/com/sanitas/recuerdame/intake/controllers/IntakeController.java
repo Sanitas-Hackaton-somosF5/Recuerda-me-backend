@@ -2,6 +2,7 @@ package com.sanitas.recuerdame.intake.controllers;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,15 +19,12 @@ import com.sanitas.recuerdame.intake.service.IntakeService;
 
 @RestController
 @RequestMapping(path = "${api-endpoint}/intakes")
+@RequiredArgsConstructor
 public class IntakeController {
 
   private final IntakeService<IntakeResponse, IntakeRequest> service;
 
-  public IntakeController(IntakeService<IntakeResponse, IntakeRequest> service) {
-    this.service = service;
-  }
-
-  @GetMapping("")
+  @GetMapping
   public List<IntakeResponse> index() {
     return service.getAllIntakes();
   }
@@ -37,7 +35,7 @@ public class IntakeController {
     return ResponseEntity.ok(intake);
   }
 
-  @PostMapping("")
+  @PostMapping
   public ResponseEntity<IntakeResponse> storeIntake(@RequestBody IntakeRequest dtoRequest) {
     if (dtoRequest == null) {
       return ResponseEntity.badRequest().build();
@@ -59,6 +57,5 @@ public class IntakeController {
 
     IntakeResponse updated = service.updateIntakeStatus(id, status);
     return ResponseEntity.ok(updated);
-  };
-
+  }
 }
