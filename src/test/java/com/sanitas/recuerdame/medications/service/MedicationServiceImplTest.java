@@ -234,15 +234,23 @@ class MedicationServiceImplTest {
 
     @Test
     void testDeleteMedication() {
+        Long medicationId = 1L;
+
+        when(medicationRepository.existsById(medicationId)).thenReturn(true);
+
         medicationService.deleteMedication(1L);
         verify(medicationRepository).deleteById(1L);
     }
 
     @Test
     void testDeleteMedication_notFound() {
-        doThrow(new RuntimeException("Not found")).when(medicationRepository).deleteById(99L);
+        Long medicationId = 99L;
 
-        assertThrows(RuntimeException.class, () -> medicationService.deleteMedication(99L));
-        verify(medicationRepository).deleteById(99L);
+        when(medicationRepository.existsById(medicationId)).thenReturn(false);
+
+        assertThrows(MedicationNotFoundException.class,
+                () -> medicationService.deleteMedication(medicationId));
+
+        verify(medicationRepository, never()).deleteById(medicationId);
     }
 }

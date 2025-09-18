@@ -1,6 +1,6 @@
 package com.sanitas.recuerdame.user.service;
 
-import com.sanitas.recuerdame.shared.exceptions.emailAlreadyExistsException;
+import com.sanitas.recuerdame.shared.exceptions.EmailAlreadyExistsException;
 import com.sanitas.recuerdame.user.dto.UserLoginRequest;
 import com.sanitas.recuerdame.user.dto.UserRegisterRequest;
 import com.sanitas.recuerdame.user.dto.UserResponse;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse register(UserRegisterRequest request) {
         if (userRepository.existsByEmail(request.email())) {
-            throw new emailAlreadyExistsException("Email already exists");
+            throw new EmailAlreadyExistsException("Email already exists");
         }
         User user = userMapper.toEntity(request);
         User saved = userRepository.save(user);

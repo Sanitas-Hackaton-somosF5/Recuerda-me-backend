@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     private ErrorResponse buildErrorResponse(ErrorCode errorCode, String message, HttpStatus httpStatus, String path) {
@@ -48,6 +50,33 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleEmailAlreadyExists(EmailAlreadyExistsException exception, HttpServletRequest request) {
+        ErrorResponse error = buildErrorResponse(
+                ErrorCode.EMAIL_ALREADY_EXISTS,
+                exception.getMessage(),
+                HttpStatus.CONFLICT,
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException exception, HttpServletRequest request) {
+
+        if ("Invalid credentials".equals(exception.getMessage())) {
+            ErrorResponse error = buildErrorResponse(
+                    ErrorCode.INVALID_CREDENTIALS,
+                    "Invalid credentials",
+                    HttpStatus.UNAUTHORIZED,
+                    request.getRequestURI()
+            );
+            return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+        }
+
+        return handleGenericException(exception, request);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException exception, HttpServletRequest request) {
 
@@ -77,9 +106,5 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(emailAlreadyExistsException.class)
-    public ResponseEntity<String> handleEmailAlreadyExists(emailAlreadyExistsException ex) {
-        return ResponseEntity.status(409).body(ex.getMessage());
-    }
 }
 
