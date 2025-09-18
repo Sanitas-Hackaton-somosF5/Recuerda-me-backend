@@ -11,7 +11,7 @@ import com.sanitas.recuerdame.shared.IntakeSlot;
 import com.sanitas.recuerdame.shared.exceptions.MedicationAlreadyExistsException;
 import com.sanitas.recuerdame.shared.exceptions.MedicationNotFoundException;
 import com.sanitas.recuerdame.shared.exceptions.UserNotFoundException;
-import com.sanitas.recuerdame.user.User;
+import com.sanitas.recuerdame.user.entity.User;
 import com.sanitas.recuerdame.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
