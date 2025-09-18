@@ -87,6 +87,9 @@ public class MedicationServiceImpl implements MedicationService{
 
     @Override
     public void deleteMedication(Long id) {
+        if (!medicationRepository.existsById(id)) {
+            throw new MedicationNotFoundException("Medication not found with id: " + id);
+        }
         medicationRepository.deleteById(id);
     }
 }
