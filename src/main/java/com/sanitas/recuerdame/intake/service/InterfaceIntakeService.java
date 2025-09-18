@@ -2,7 +2,7 @@ package com.sanitas.recuerdame.intake.service;
 
 import java.util.List;
 
-import com.sanitas.recuerdame.intake.Intake;
+import com.sanitas.recuerdame.intake.Status;
 
 public interface InterfaceIntakeService<T, S> {
 
@@ -18,5 +18,5 @@ public interface InterfaceIntakeService<T, S> {
 
   public List<T> getIntakesByMedication(Long medicationId);
 
-  T updateIntakeStatus(Long id, Intake.StatusEnum status);
+  T updateIntakeStatus(Long id, Status status);
 }

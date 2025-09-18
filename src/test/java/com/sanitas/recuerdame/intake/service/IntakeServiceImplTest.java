@@ -20,8 +20,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.sanitas.recuerdame.intake.Intake;
 import com.sanitas.recuerdame.intake.IntakeRepository;
-import com.sanitas.recuerdame.intake.dtos.IntakeDTORequest;
-import com.sanitas.recuerdame.intake.dtos.IntakeDTOResponse;
+import com.sanitas.recuerdame.intake.Status;
+import com.sanitas.recuerdame.intake.dtos.IntakeRequest;
+import com.sanitas.recuerdame.intake.dtos.IntakeResponse;
 import com.sanitas.recuerdame.medications.Medication;
 import com.sanitas.recuerdame.shared.IntakeSlot;
 
@@ -50,20 +51,20 @@ public class IntakeServiceImplTest {
         .id(1L)
         .date(LocalDate.of(2025, 9, 17))
         .slot(IntakeSlot.BREAKFAST)
-        .status(Intake.StatusEnum.PENDING)
+        .status(Status.PENDING)
         .medication(mockMedication)
         .build();
   }
 
   @Test
   void createIntake_shouldSaveAndReturnDTO() {
-    IntakeDTORequest request = new IntakeDTORequest(
+    IntakeRequest request = new IntakeRequest(
         1L,
         LocalDate.of(2025, 9, 17),
         IntakeSlot.BREAKFAST);
     when(intakeRepository.save(any(Intake.class))).thenReturn(mockIntake);
 
-    IntakeDTOResponse response = intakeService.createIntake(request);
+    IntakeResponse response = intakeService.createIntake(request);
 
     assertThat(response.id()).isEqualTo(1L);
     assertThat(response.medicineName()).isEqualTo("Paracetamol");
@@ -76,7 +77,7 @@ public class IntakeServiceImplTest {
   void getAllIntakes_shouldReturnListOfDTOs() {
     when(intakeRepository.findAll()).thenReturn(List.of(mockIntake));
 
-    List<IntakeDTOResponse> responses = intakeService.getAllIntakes();
+    List<IntakeResponse> responses = intakeService.getAllIntakes();
 
     assertThat(responses).hasSize(1);
     assertThat(responses.get(0).medicineName()).isEqualTo("Paracetamol");
@@ -87,10 +88,10 @@ public class IntakeServiceImplTest {
   void getIntakeById_whenExists_shouldReturnDTO() {
     when(intakeRepository.findById(1L)).thenReturn(Optional.of(mockIntake));
 
-    IntakeDTOResponse response = intakeService.getIntakeById(1L);
+    IntakeResponse response = intakeService.getIntakeById(1L);
 
     assertThat(response.id()).isEqualTo(1L);
-    assertThat(response.status()).isEqualTo(Intake.StatusEnum.PENDING);
+    assertThat(response.status()).isEqualTo(Status.PENDING);
     verify(intakeRepository, times(1)).findById(1L);
   }
 
