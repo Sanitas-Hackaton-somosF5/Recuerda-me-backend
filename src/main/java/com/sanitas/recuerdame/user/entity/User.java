@@ -1,5 +1,6 @@
 package com.sanitas.recuerdame.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sanitas.recuerdame.medications.Medication;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -46,12 +47,14 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Medication> medications;
 
     @PrePersist
-    protected void onCreate() {createdAt = LocalDateTime.now();updatedAt = LocalDateTime.now();
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate

@@ -38,10 +38,7 @@ public class Medication {
 
     @ElementCollection(targetClass = IntakeSlot.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(
-            name = "medication_slots",
-            joinColumns = @JoinColumn(name = "medication_id")
-    )
+    @CollectionTable(name = "medication_slots", joinColumns = @JoinColumn(name = "medication_id"))
     @Column(name = "slot")
     private List<IntakeSlot> intakeSlots;
 
